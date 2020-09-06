@@ -1,6 +1,19 @@
 from urllib.parse import urljoin
 import requests
 
+
+class Response():
+  def __init__(self, results=None, next=None, total=None):
+    self.results = results
+    self.total = total
+    self.next = next
+
+  def next_page(self):
+    if self.next:
+      response = requests.get(self.next, timeout=3).json()
+      response = self(results=response["results"], next=response["next"], total=response["count"])
+      return response
+
 class Base():
   def __init__(self):
     self.base_url = "https://wger.de/api/v2/"
@@ -28,7 +41,8 @@ class Base():
       url = urljoin(self.pseudo_base_url, raw_filters)
     else:
       url = self.pseudo_base_url
-    response = requests.get(url, timeout=3).json()["results"]
+    response = requests.get(url, timeout=3).json()
+    response = Response(results=response["results"], next=response["next"], total=response["count"])
     return response
 
   def __initializator(self):
@@ -42,4 +56,3 @@ class Base():
 
   def get_filtered(self, filters):
     return self.__get_list(filters)
-

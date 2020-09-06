@@ -8,11 +8,13 @@ import time
 import pprint 
 import webbrowser
 import http.server
-import socketserver
-import threading
+from multiprocessing import Process
+from http.server import HTTPServer, CGIHTTPRequestHandler
 
 PORT = 3004
-TIME = 60
+TIME = 2
+SEX = "man" # "man"
+IMAGES = True
 EQUIPEMENT = [
   # {
   #   "id": 1,
@@ -62,35 +64,67 @@ def randomizer(array):
   else:
     return 0
   
-class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
+class HttpRequestHandler(http.server.SimpleHTTPRequestHandler):
   def do_GET(self):
     self.path = '/src/' + self.path
     return http.server.SimpleHTTPRequestHandler.do_GET(self)
 
 pp = pprint.PrettyPrinter(indent=1)
 
+def random_limiter(count):
+  limit = 0
+  offset = 0
+  while True:
+    limit = randint(0, count-1)
+    offset = randint(0, count-1)
+    if (limit + offset) < count:
+      break
+  return (limit, offset)
+
 def launch_serve():
+  print("Getting information..")
   name = ""
   description = ""
   video_results = []
   exercise_images= []
-  while True:
-    equipement_id = randomizer(EQUIPEMENT)
-    equipement_id = EQUIPEMENT[equipement_id]["id"]
-    exercises = Exercise().get_filtered({ "language": 2, "equipment": equipement_id}) 
-    random_exercise = randomizer(exercises)
-    random_exercise = exercises[random_exercise]
-    description = random_exercise["description"]
-    name = random_exercise["name"]
-    exercise_images = ExerciseImage().get_filtered({"exercise": random_exercise["id"]})
-    if len(exercise_images) > 0:
+  relative_limit = randint(0, 10)
+  relative_offset = randint(0, 100)
+  count = 0
+  image = None
+  flag = True
+  while flag:
+    flag = True
+    equipement = randomizer(EQUIPEMENT)
+    print("offset:", relative_offset, "limit:", relative_limit, "total:", count, "equipement:", EQUIPEMENT[equipement]["name"])
+    equipement_id = EQUIPEMENT[equipement]["id"]
+    exercises = Exercise().get_filtered({ "language": 2, "equipment": equipement_id, "limit": relative_limit, "offset": relative_offset})
+    relative_limit, relative_offset = random_limiter(exercises.total)
+    count = exercises.total
+    exercises = exercises.results
+    if len(exercises) == 0:
+      continue
+    if IMAGES:
+      for exercise in exercises:
+        print(".")
+        exercise_images = ExerciseImage().get_filtered({"exercise": exercise["id"]}).results
+        if len(exercise_images) > 0:
+          description = exercise["description"]
+          name = exercise["name"]
+          image = exercise_images[0]["image"]
+          flag =False
+          break
+    else:
+      exercise = exercises[randomizer(exercises)]
+      description = exercise["description"]
+      name = exercise["name"]
       break
+    print("...")
   
-  video_results = YoutubeSearch(name, max_results=12).to_dict()
+  video_results = YoutubeSearch(name + " {} workout".format(SEX), max_results=9).to_dict()
   data = {
-    "title": name + " workout",
+    "title": name,
     "description": description,
-    "image": exercise_images[0]["image"],
+    "image": image,
     "videos": video_results
   }
 
@@ -99,14 +133,24 @@ def launch_serve():
     data = "const data=" + data
     text_file.write(data)
 
-  handler = MyHttpRequestHandler
+  handler = HttpRequestHandler
+  host = "http://localhost:{}".format(PORT)
+  webbrowser.open(host, new=2)
+  print("Open at", host)
+  server = HTTPServer(server_address=('', PORT), RequestHandlerClass=handler)
+  server.serve_forever()
 
-  with socketserver.TCPServer(("", PORT), handler) as httpd:
-    webbrowser.open("http://localhost:{}".format(PORT), new=2)
-    httpd.serve_forever()
-
-
-while True:
-  print('init')
-  launch_serve()
-  time.sleep(TIME * 60)
+if __name__ == "__main__":
+  while True:
+    try:
+      print('> Start')
+      proc = Process(target=launch_serve)
+      proc.start()
+      time.sleep(TIME * 60)
+      proc.terminate()
+      proc.kill()
+      proc.join()
+      print("> Stop")
+    except:
+      print("Some error :P")
+      continue
