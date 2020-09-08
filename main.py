@@ -11,9 +11,9 @@ import http.server
 from multiprocessing import Process
 from http.server import HTTPServer, CGIHTTPRequestHandler
 
-PORT = 3004
-TIME = 2
-SEX = "man" # "man"
+PORT = 3007
+TIME = 60 #minutes
+SEX = "male" # "female"
 IMAGES = True
 EQUIPEMENT = [
   # {
