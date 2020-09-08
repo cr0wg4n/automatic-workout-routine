@@ -1,12 +1,13 @@
 # Workout Spamer Script
 This project was made for people who to want improve their physical skills, the script open a new tab in your default browser every certain time, showing a workout 
-exercise.
+exercise, name, description and youtube videos.
 
 ## We learn about
 * Basic html, css and javascript concepts
 * Python built-in basic HTTP server
 * Request to API
 * Inheritance and object oriented programming
+* Video data extraction (youtube library)
 
 ## API 
 The root endpoint:
