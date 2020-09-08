@@ -73,10 +73,6 @@ EQUIPEMENT = [
 ```
 lol, sorry for my comments in spanish.
 
-## Preview
-
-Enjoy it!
-
 ## Autostart
 This option allow you boot the script after your OS's boot
 
@@ -87,3 +83,9 @@ In linux is so easy thanks to `crontab`:
 
 ### Windows
 In Windows is a litle bit more complicate, maybe later I making a tutorial.
+
+
+## Preview
+<img src="https://raw.githubusercontent.com/cr0wg4n/automatic-workout-routine/master/assets/preview.PNG"/>
+<br>
+Enjoy it!
