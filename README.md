@@ -1,5 +1,6 @@
 # Workout Spamer Script
-This project was made for people who to want improve their physical skills
+This project was made for people who to want improve their physical skills, the script open a new tab in your default browser every certain time, showing a workout 
+exercise.
 
 ## We learn about
 * Basic html, css and javascript concepts
@@ -21,7 +22,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Alternativement you can customize the script: The port to serve the low-weight-page, time in minutes (every time, the page will open in your browser by default), sex (female or male), if you don't need images the image option will be `False` or maybe `True`, you can comment or uncomment the equipement array, depends on what kind of equipement you have.
+Alternativement you can customize the script: The port to serve the low-weight-page, time in minutes (every certain time, the page will open in your browser by default), sex (female or male), if you don't need images the image option will be `False` or maybe `True`, you can comment or uncomment the equipement array, depends on what kind of equipement you have.
 
 ```python
 PORT = 3007
@@ -86,6 +87,6 @@ In Windows is a litle bit more complicate, maybe later I making a tutorial.
 
 
 ## Preview
-<img src="https://raw.githubusercontent.com/cr0wg4n/automatic-workout-routine/master/assets/preview.PNG"/>
+<img alt="Demo " src="https://raw.githubusercontent.com/cr0wg4n/automatic-workout-routine/master/assets/preview.PNG"/>
 <br>
 Enjoy it!
