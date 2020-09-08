@@ -93,4 +93,5 @@ In Windows is a litle bit more complicate, maybe later I making a tutorial.
 Enjoy it!
 
 ## Next Steps 
-[ ] Selection of the most convenient days and hour, not only all day
+- [ ] Selection of the most convenient days and hours, not only all day
+- [ ] Offline mode, the information is download in a basic DB like SQLite or text plain (JSON file)
