@@ -91,3 +91,6 @@ In Windows is a litle bit more complicate, maybe later I making a tutorial.
 <img alt="Demo " src="https://raw.githubusercontent.com/cr0wg4n/automatic-workout-routine/master/assets/preview.PNG"/>
 <br>
 Enjoy it!
+
+## Next Steps 
+[ ] Selection of the most convenient days and hour, not only all day
