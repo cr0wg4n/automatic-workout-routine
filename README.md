@@ -1,8 +1,10 @@
 # Workout Spamer Script
+
 This project was made for people who to want improve their physical skills, the script open a new tab in your default browser every certain time, showing a workout 
 exercise, name, description and youtube videos.
 
 ## We learn about
+
 * Basic html, css and javascript concepts
 * Python built-in basic HTTP server
 * Request to API
@@ -10,6 +12,7 @@ exercise, name, description and youtube videos.
 * Video data extraction (youtube library)
 
 ## API 
+
 The root endpoint:
 ```
 https://wger.de/api/v2/
@@ -19,8 +22,8 @@ https://wger.de/api/v2/
 ## Execution
 
 ```bash
-pip install -r requirements.txt
-python main.py
+pip3 install -r requirements.txt
+python3 main.py
 ```
 
 Alternativement you can customize the script: The port to serve the low-weight-page, time in minutes (every certain time, the page will open in your browser by default), sex (female or male), if you don't need images the image option will be `False` or maybe `True`, you can comment or uncomment the equipement array, depends on what kind of equipement you have.
@@ -76,22 +79,43 @@ EQUIPEMENT = [
 lol, sorry for my comments in spanish.
 
 ## Autostart
+
 This option allow you boot the script after your OS's boot
 
 ### Linux
+
 In linux is so easy thanks to `crontab`:
-```
+
+```bash
+sudo crontab -e
 ```
 
+In the crontab file, add this line at the end:
+
+```bash
+@reboot export DISPLAY=:1 && sleep 300 && cd REPO_ABSOLUTE_PATH && python3 main.py &
+```
+
+Example: 
+
+* `REPO_ABSOLUTE_PATH` = In my case: `/home/cr0wg4n/repos/automatic-workout-routine/`
+* `DISPLAY` = Could be `:0` or `:1`, test with: `echo $DISPLAY` in your terminal, will print `:1` or `:0` or another number
+
+
+Every startup this command will be executed and this script will run in background.
+
 ### Windows
+
 In Windows is a litle bit more complicate, maybe later I making a tutorial.
 
 
 ## Preview
+
 <img alt="Demo " src="https://raw.githubusercontent.com/cr0wg4n/automatic-workout-routine/master/assets/preview.PNG"/>
 <br>
 Enjoy it!
 
 ## Next Steps 
+
 - [ ] Selection of the most convenient days and hours, not only all day
 - [ ] Offline mode, the information is download in a basic DB like SQLite or text plain (JSON file)

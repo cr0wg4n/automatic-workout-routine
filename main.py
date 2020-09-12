@@ -11,10 +11,10 @@ import http.server
 from multiprocessing import Process
 from http.server import HTTPServer, CGIHTTPRequestHandler
 
-PORT = 3007
+PORT = 3009
 TIME = 60 #minutes
 SEX = "male" # "female"
-IMAGES = True
+IMAGES = False
 EQUIPEMENT = [
   # {
   #   "id": 1,
@@ -128,7 +128,7 @@ def launch_serve():
     "videos": video_results
   }
 
-  with open("src/data.js", "w") as text_file:
+  with open('src/data.js', 'w') as text_file:
     data = json.dumps(data)
     data = "const data=" + data
     text_file.write(data)
@@ -152,5 +152,5 @@ if __name__ == "__main__":
       proc.join()
       print("> Stop")
     except:
-      print("Some error :P")
+      print("Some error")
       continue
