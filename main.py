@@ -135,9 +135,9 @@ def launch_serve():
 
   handler = HttpRequestHandler
   host = "http://localhost:{}".format(PORT)
-  webbrowser.open(host, new=2)
   print("Open at", host)
   server = HTTPServer(server_address=('', PORT), RequestHandlerClass=handler)
+  webbrowser.open(host, new=2)
   server.serve_forever()
 
 if __name__ == "__main__":
