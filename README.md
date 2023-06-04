@@ -1,7 +1,7 @@
-# Workout Spamer Script
+# Workout Spammer Script ft. WGER API
 
 This project was made for people who to want improve their physical skills, the script open a new tab in your default browser every certain time, showing a workout 
-exercise, name, description and youtube videos.
+exercise, name, description and YouTube videos.
 
 ## We learn about
 
@@ -9,7 +9,7 @@ exercise, name, description and youtube videos.
 * Python built-in basic HTTP server
 * Request to API
 * Inheritance and object oriented programming
-* Video data extraction (youtube library)
+* Video data extraction (YouTube library)
 
 ## API 
 
@@ -17,7 +17,7 @@ The root endpoint:
 ```
 https://wger.de/api/v2/
 ```
-[WGER](https://wger.de/es/software/features) thanks a lot!
+[WGER](https://wger.de/es/software/features) thanks you so much!
 
 ## Execution
 
@@ -26,14 +26,18 @@ pip3 install -r requirements.txt
 python3 main.py
 ```
 
-Alternativement you can customize the script: The port to serve the low-weight-page, time in minutes (every certain time, the page will open in your browser by default), sex (female or male), if you don't need images the image option will be `False` or maybe `True`, you can comment or uncomment the equipement array, depends on what kind of equipement you have.
+You can customize the script: The port to serve the low-weight-page, time in minutes (every certain time, the page will open in your browser by default), sex (female or male), if you don't need images the image option will be `False` or maybe `True`, you can comment or uncomment the equipment array, depends on what kind of equipment you have.
+
+
+To configure the Script edit the `config.py` file:
 
 ```python
-PORT = 3007
+PORT = 3007 # Server port,  Mini-page of workouts
 TIME = 60 # minutes
 SEX = "male" # "female"
-IMAGES = True
-EQUIPEMENT = [
+IMAGES = False # Some images are pretty bad
+MAX_YT_RESULTS = 12
+EQUIPMENT = [
   # {
   #   "id": 1,
   #   "name": "Barbell" # barra con pesas largas
@@ -106,13 +110,13 @@ Every startup this command will be executed and this script will run in backgrou
 
 ### Windows
 
-In Windows is a litle bit more complicate, maybe later I making a tutorial.
-
+In Windows is a little bit complicated, maybe later I will do a tutorial.
 
 ## Preview
 
 <img alt="Demo " src="https://raw.githubusercontent.com/cr0wg4n/automatic-workout-routine/master/assets/preview.PNG"/>
 <br>
+
 Enjoy it!
 
 ## Next Steps 

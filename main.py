@@ -9,54 +9,15 @@ import pprint
 import webbrowser
 import http.server
 from multiprocessing import Process
-from http.server import HTTPServer, CGIHTTPRequestHandler
-
-PORT = 3009
-TIME = 60 #minutes
-SEX = "male" # "female"
-IMAGES = False
-EQUIPEMENT = [
-  # {
-  #   "id": 1,
-  #   "name": "Barbell" # barra con pesas largas
-  # },
-  {
-    "id": 8,
-    "name": "Bench" # banca, improvisa con una silla común
-  },
-  {
-    "id": 3,
-    "name": "Dumbbell" # pesa común, improvisa con una mochila vieja, llenala de libros y cosas pesadas, alternativamente siempre hay una silla mejor si es de metal
-  },
-  {
-    "id": 4,
-    "name": "Gym mat" # tapete de gimnasia, ulala, improvisa con un tapete común :P
-  },
-  # {
-  #   "id": 9,
-  #   "name": "Incline bench" # banca de inclinación
-  # },
-  {
-    "id": 10,
-    "name": "Kettlebell" # pesa rusa, improvisa con una mochila vieja, llenala de libros y cosas pesadas
-  },
-  {
-    "id": 7,
-    "name": "none (bodyweight exercise)" # ningún material para ejercitarte, calistenia
-  },
-  {
-    "id": 6,
-    "name": "Pull-up bar" # barra para colgarte, improvisa con el marco de tu puerta 
-  },
-  # {
-  #   "id": 5,
-  #   "name": "Swiss Ball" # pelota rusa, o la pelota esa de los videos en los que dos sujetos colisionan
-  # },
-  {
-    "id": 2,
-    "name": "SZ-Bar" # una barra sin pesas, improvisa con cualquier barra
-  }
-]
+from http.server import HTTPServer
+from config import (
+  PORT,
+  TIME,
+  SEX,
+  IMAGES,
+  MAX_YT_RESULTS,
+  EQUIPMENT
+)
 
 def randomizer(array):
   if len(array)!=0:
@@ -94,9 +55,10 @@ def launch_serve():
   flag = True
   while flag:
     flag = True
-    equipement = randomizer(EQUIPEMENT)
-    print("offset:", relative_offset, "limit:", relative_limit, "total:", count, "equipement:", EQUIPEMENT[equipement]["name"])
-    equipement_id = EQUIPEMENT[equipement]["id"]
+    equipement = randomizer(EQUIPMENT)
+    print("offset:", relative_offset, "limit:", relative_limit, "total:", count, "equipement:", EQUIPMENT[equipement]["name"])
+    equipement_id = EQUIPMENT[equipement]["id"]
+    # Language id 2 is english, https://wger.de/api/v2/language/
     exercises = Exercise().get_filtered({ "language": 2, "equipment": equipement_id, "limit": relative_limit, "offset": relative_offset})
     relative_limit, relative_offset = random_limiter(exercises.total)
     count = exercises.total
@@ -120,7 +82,11 @@ def launch_serve():
       break
     print("...")
   
-  video_results = YoutubeSearch(name + " {} workout".format(SEX), max_results=9).to_dict()
+  video_results = YoutubeSearch(
+      "{} {} workout at home".format(name, SEX), 
+      max_results=MAX_YT_RESULTS
+    ).to_dict()
+
   data = {
     "title": name,
     "description": description,
@@ -151,6 +117,6 @@ if __name__ == "__main__":
       proc.kill()
       proc.join()
       print("> Stop")
-    except:
-      print("Some error")
+    except Exception as error:
+      print("Some error:", error)
       continue
