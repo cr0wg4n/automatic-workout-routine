@@ -10,6 +10,7 @@ exercise, name, description and YouTube videos.
 * Request to API
 * Inheritance and object oriented programming
 * Video data extraction (YouTube library)
+* API mapping
 
 ## API 
 
@@ -36,7 +37,8 @@ PORT = 3007 # Server port,  Mini-page of workouts
 TIME = 60 # minutes
 SEX = "male" # "female"
 IMAGES = False # Some images are pretty bad
-MAX_YT_RESULTS = 12
+MAX_YT_RESULTS = 12 # Maximum number of searches on YouTube
+
 EQUIPMENT = [
   # {
   #   "id": 1,

@@ -83,7 +83,7 @@ def launch_serve():
     print("...")
   
   video_results = YoutubeSearch(
-      "{} {} workout at home".format(name, SEX), 
+      "{} workout at home, for {}".format(name, SEX), 
       max_results=MAX_YT_RESULTS
     ).to_dict()
 
