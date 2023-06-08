@@ -1,7 +1,7 @@
 
 PORT = 3009
 TIME = 60 #minutes
-SEX = "female" # "female" or "male"
+SEX = "male" # "female" or "male"
 IMAGES = False
 MAX_YT_RESULTS = 12
 

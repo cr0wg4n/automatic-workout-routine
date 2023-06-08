@@ -35,7 +35,7 @@ To configure the Script edit the `config.py` file:
 ```python
 PORT = 3007 # Server port,  Mini-page of workouts
 TIME = 60 # minutes
-SEX = "male" # "female"
+SEX = "male" # "female" or "male" 
 IMAGES = False # Some images are pretty bad
 MAX_YT_RESULTS = 12 # Maximum number of searches on YouTube
 

@@ -82,8 +82,11 @@ def launch_serve():
       break
     print("...")
   
+  yt_query = "{} workout at home, for {}".format(name, SEX)
+  print('YouTube query: ', yt_query)
+
   video_results = YoutubeSearch(
-      "{} workout at home, for {}".format(name, SEX), 
+      yt_query, 
       max_results=MAX_YT_RESULTS
     ).to_dict()
 
